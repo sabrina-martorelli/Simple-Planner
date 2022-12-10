@@ -5,13 +5,29 @@ var today = moment().format("dddd, MMMM Do");
 //Display the current day at the top of the calender
 $('#currentDay').text(today);
 
+//Targets container to add rows
+var container= $('.container');
 
+//Adds Classes to become a flex box
+container.addClass('d-flex flex-column');
 
 //Looping from 9 to 17 hs am/pm format
 var businessHours=moment(09, 'HH');
 while(businessHours.hour()< 18){
 
-    console.log(businessHours.format('hha'));
+    var hh=(businessHours.format('hha'));
+
+   //Creates a row with 3 divs for each business hours
+
+    container.append(`<div class="row-${hh} d-flex"></div>`)
+    var row= $(`.row-${hh}`);
+
+    row.append(`<div class="p-3 hour">${hh}</div>`);
+
+    
+    row.append(`<div class="p-3 w-100 past "><textarea></textarea></div>`);
+    row.append(`<div class="p-3 saveBtn "><i class="fas fa-save"></i></div>`);
+
 
     businessHours.add(1,'hour');
 }
@@ -20,18 +36,18 @@ while(businessHours.hour()< 18){
 
 
 /*
-      <div class="d-flex flex-column  ">  
-        <div class="d-flex align-content-center ">
-          <div class="p-3 hour  ">09 AM</div>
+      <div class="d-flex flex-column container  ">  
+
+        <div class="row d-flex ">
+          <div class="p-3 hour">09 AM</div>
           <div class="p-3 w-100 past "><textarea></textarea></div>
-          <div class="p-3  saveBtn text "><i class="fas fa-save"></i>
-          </div>
+          <div class="p-3  saveBtn  "><i class="fas fa-save"></i></div>
         </div>
 
-        <div class="d-flex align-content-center ">
+        <div class="d-flex  ">
           <div class="p-3 hour">10 PM</div>
           <div class="p-3 w-100  present"><textarea></textarea></div>
-          <div class="p-3  saveBtn align-content-center"><i class="fas fa-save"></i>
+          <div class="p-3  saveBtn "><i class="fas fa-save"></i>
           </div>
         </div>
 

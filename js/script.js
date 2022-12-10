@@ -1,6 +1,7 @@
 
-//Get current date
-var today = moment().format("D MMM YYYY");
+//Gets current date
+var today = moment().format("dddd, MMMM Do");
 
-console.log(today);
-console.log('hola');
+//Display the current day at the top of the calender
+$('#currentDay').text(today);
+

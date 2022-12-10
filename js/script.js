@@ -15,3 +15,33 @@ while(businessHours.hour()< 18){
 
     businessHours.add(1,'hour');
 }
+
+
+
+
+/*
+      <div class="d-flex flex-column  ">  
+        <div class="d-flex align-content-center ">
+          <div class="p-3 hour  ">09 AM</div>
+          <div class="p-3 w-100 past "><textarea></textarea></div>
+          <div class="p-3  saveBtn text "><i class="fas fa-save"></i>
+          </div>
+        </div>
+
+        <div class="d-flex align-content-center ">
+          <div class="p-3 hour">10 PM</div>
+          <div class="p-3 w-100  present"><textarea></textarea></div>
+          <div class="p-3  saveBtn align-content-center"><i class="fas fa-save"></i>
+          </div>
+        </div>
+
+        <div class="d-flex align-content-center ">
+          <div class="p-3 hour">11 AM</div>
+          <div class="p-3  w-100 future"><textarea></textarea></div>
+          <div class="p-3  saveBtn"><i class="fas fa-save"></i>
+          </div>
+        </div>    
+      </div>
+
+
+*/

@@ -24,8 +24,17 @@ while(businessHours.hour()< 18){
 
     row.append(`<div class="p-3 hour">${hh}</div>`);
 
+    //Compares current time with planner to show correct colors
+    //Use of variable to set the colour
+    var timeblockColour='present';
+    // if(mayor){
+   //     timeblockColour='future';
+    // }
+    // else{
+    //    timeblockColour='past'
+    // }
     
-    row.append(`<div class="p-3 w-100 past "><textarea></textarea></div>`);
+    row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea></textarea></div>`);
     row.append(`<div class="p-3 saveBtn "><i class="fas fa-save"></i></div>`);
 
 

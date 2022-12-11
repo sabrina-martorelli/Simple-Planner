@@ -47,13 +47,39 @@ while (businessHours.hour() < 18) {
 
 
     row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea></textarea></div>`);
-    row.append(`<div class="p-3 saveBtn "><i class="fas fa-save"></i></div>`);
+    row.append(`<div class="p-3 saveBtn"><i class="fas fa-save"></i></div>`);
 
 
     businessHours.add(1, 'hour');
 }
 
 
+// Targets save buttons t
+
+//var saveBtn=$('.saveBtn');
+
+//saveBtn.click();
+
+container.on('click','.saveBtn',saveOnLocal);
+
+
+function saveOnLocal(){
+
+    console.log('save');
+   // console.log(this);
+    var button= $(this);
+   // console.log(button);
+    var hermano= button.prev();
+    console.log(hermano);
+    var hijo= hermano.children();
+    console.log(hijo.val());
+
+    var hermano2= button.prev().prev();
+   // console.log(hermano2);
+   // console.log(hermano2.text());
+   
+    // console.log(hermano.val());
+};
 
 
 /*

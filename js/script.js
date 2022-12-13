@@ -114,6 +114,8 @@ function saveOnLocal() {
     var sibling2 = button.prev().prev();
     var currentHour = sibling2.text();
 
+ 
+
     //Base on if there are existing timeblocks or not adds or replace text on timeblocks
     if (timeBlocks) {
         
@@ -123,6 +125,7 @@ function saveOnLocal() {
      
         if (index === -1) {
 
+
             //Sets new object for local storage
             newBlock.time = currentHour;
             newBlock.text = nephew.val();
@@ -131,8 +134,12 @@ function saveOnLocal() {
             timeBlocks.push(newBlock);
         }
         else {
+
+
             //Replace existing text on timeblock 
             timeBlocks[index].text = nephew.val();
+
+
         }
 
         localStorage.setItem('timeblock', JSON.stringify(timeBlocks));
@@ -154,10 +161,11 @@ function saveOnLocal() {
     }
 
 
-
+    //Shows note at the top of the page when a new text is saved
     showAppointmentNote();
 
-
+    //Removes all entries that are empty - Cover removed cases  (text ="")
+    cleanLocalStorage();
 
 
 };
@@ -173,3 +181,25 @@ function showAppointmentNote() {
     setTimeout(function () { $('.note').remove(); }, 500);
 }
 
+
+function cleanLocalStorage() {
+
+    //Var definitions
+    var cleanBlocks, newBlock = [];
+   
+
+    cleanBlocks = JSON.parse(localStorage.getItem('timeblock'));
+
+    for (var block= 0; block<cleanBlocks.length;  block++)
+    {
+    
+        if (cleanBlocks[block].text !=="")
+        {
+           newBlock.push(cleanBlocks[block]);
+        }
+
+    }
+
+    localStorage.setItem('timeblock', JSON.stringify(newBlock));
+
+}

@@ -137,13 +137,13 @@ var newBlock = {
 function showAppointmentNote(){
 
     // Adds jumbotron child
-  var parent= $('#jumbotron');
+  var parent= $('.jumbotron');
 
-  parent.append('<p>Appointment added to Local Storage</p>')
+  parent.append('<p class="note">Appointment added to Local Storage</p>');
   //creates child
-
-  //Show the feedback only for some time on screen
-  setTimeout( parent.remove(), 500);
+   
+    //Show the feedback only for some time on screen
+    setTimeout(function () {  $('.note').remove();}, 500);
 
 
 }

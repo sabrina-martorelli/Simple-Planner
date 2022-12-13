@@ -55,7 +55,22 @@ while (businessHours.hour() < 18) {
 
    //Search hh on existingBlocks , get index and insert text into textarea 
 
-    row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea></textarea></div>`);
+   
+   existingBlocks= JSON.parse(localStorage.getItem('timeblock'));
+   var i = timeBlocks.findIndex(x => x.time === hh);
+    if(i !== -1){
+        row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea>${existingBlocks[i].text}</textarea></div>`);
+  
+    }
+
+    else{
+
+        row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea></textarea></div>`);
+  
+
+    }
+
+
     row.append(`<div class="p-3 saveBtn"><i class="fas fa-save"></i></div>`);
 
 

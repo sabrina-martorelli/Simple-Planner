@@ -1,16 +1,5 @@
 
-//Var definitions
-var timeBlocks =[
-    {
-       time:'',
-       text:'',
-        
-    }
-];
-var newBlock = {
-    time:'',
-    text:'',
-}
+
 
 
 //Gets current element from Local Storage
@@ -83,20 +72,42 @@ container.on('click','.saveBtn',saveOnLocal);
 
 function saveOnLocal(){
 
+    //Var definitions
+var timeBlocks =[
+    {
+       time:'',
+       text:'',
+        
+    }
+];
+var newBlock = {
+    time:'',
+    text:'',
+}
+
     // Targets button and all the family
     var button= $(this);
     var sibling1= button.prev();
     var nephew= sibling1.children();
     var sibling2= button.prev().prev();
-    var currentHour= sibling2.val();
+    var currentHour= sibling2.text();
+
+    console.log(currentHour);
 
     //Sets new object for local storage
     newBlock.time= currentHour;
     newBlock.text= nephew.val();   
-
+    console.log(nephew.val());
+    console.log(timeBlocks);
     //Gets the index of the element to check if is already on the local storage
-    var index=timeBlocks.indexOf(currentHour);
     
+    var index=timeBlocks.map(e => e.time).indexOf(currentHour);
+    console.log(index);
+    // }
+    // else{
+    //     timeBlocks[0].time= currentHour;
+    //     timeBlocks[0].text= nephew.text();  
+    // }
     if (index == -1){
         //Push new element into the Array because it doesn't exist
         timeBlocks.push(newBlock);
@@ -107,7 +118,7 @@ function saveOnLocal(){
        timeBlocks[index].text= nephew.val();   
     }
 
-    showNewAppointmentText();
+    showAppointmentNote();
     
     //Convert object into a JSON string and store in local storage
     localStorage.setItem('timeblock', JSON.stringify(timeBlocks));
@@ -115,6 +126,21 @@ function saveOnLocal(){
     
 };
 
+
+
+function showAppointmentNote(){
+
+    // Adds jumbotron child
+  var parent= $('#jumbotron');
+
+  parent.append('<p>Appointment added to Local Storage</p>')
+  //creates child
+
+  //Show the feedback only for some time on screen
+  setTimeout( parent.remove(), 500);
+
+
+}
 
 /*
       <div class="d-flex flex-column container  ">  

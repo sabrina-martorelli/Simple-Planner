@@ -1,8 +1,14 @@
 
+    //Var definitions
+    var existingBlocks =[
+        {
+        time:'',
+        text:'',
+            
+        }
+    ];
 
-   //Search hh on existingBlocks , get index and insert text into textarea 
-
-  
+//Search hh on existingBlocks , get index and insert text into textarea 
 existingBlocks= JSON.parse(localStorage.getItem('timeblock'));
 
 //Gets current date
@@ -13,9 +19,6 @@ var currentHour = moment().format('HH');
 //Display the current day at the top of the calender
 $('#currentDay').text(today);
 
-
-//Gets existing element from Local Storage
-//existingBlocks= JSON.parse(localStorage.getItem('timeblock'));
 
 //Targets container to add rows
 var container = $('.container');
@@ -55,20 +58,21 @@ while (businessHours.hour() < 18) {
     }
 
 
-   //console.log('existing'+);
-   if (existingBlocks){
+     if (existingBlocks){
         var i = existingBlocks.findIndex(p => p.time === hh);  
-        console.log(hh);
-        console.log(i);   
-        console.log(existingBlocks[0].text)  
+     
             if(i !== -1){
-                row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea>${existingBlocks[i].text}</textarea></div>`);
+                row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea>${existingBlocks[i].text}</textarea></div>`);
         
             }
+            else{
+                row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea></textarea></div>`);
+  
+            }
         }
-     else{
-
-                row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea></textarea></div>`);
+     else {
+     console.log('goes here?');
+                row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea></textarea></div>`);
         
 
             }
@@ -148,6 +152,7 @@ function saveOnLocal(){
             }
         ];
         
+        //Sets new object on array for local storage
        timeBlocksFirst[0].time= currentHour;
        timeBlocksFirst[0].text= nephew.val(); 
        localStorage.setItem('timeblock', JSON.stringify(timeBlocksFirst));

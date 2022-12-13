@@ -1,15 +1,15 @@
 
-    //Var definitions
-    var existingBlocks =[
-        {
-        time:'',
-        text:'',
-            
-        }
-    ];
+//Var definitions
+var existingBlocks = [
+    {
+        time: '',
+        text: '',
+
+    }
+];
 
 //Search hh on existingBlocks , get index and insert text into textarea 
-existingBlocks= JSON.parse(localStorage.getItem('timeblock'));
+existingBlocks = JSON.parse(localStorage.getItem('timeblock'));
 
 //Gets current date
 var today = moment().format("dddd, MMMM Do");
@@ -58,123 +58,112 @@ while (businessHours.hour() < 18) {
     }
 
 
-     if (existingBlocks){
-        var i = existingBlocks.findIndex(p => p.time === hh);  
-     
-            if(i !== -1){
-                row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea>${existingBlocks[i].text}</textarea></div>`);
-        
-            }
-            else{
-                row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea></textarea></div>`);
-  
-            }
+    if (existingBlocks) {
+        var i = existingBlocks.findIndex(p => p.time === hh);
+        if (i !== -1) {
+            row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea>${existingBlocks[i].text}</textarea></div>`);
         }
-     else {
-     console.log('goes here?');
-                row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea></textarea></div>`);
-        
+        else {
+            row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea></textarea></div>`);
+        }
+    }
+    else {
+        row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea></textarea></div>`);
+    }
 
-            }
-    
 
 
     row.append(`<div class="p-3 saveBtn"><i class="fas fa-save"></i></div>`);
-
 
     businessHours.add(1, 'hour');
 }
 
 
 
-container.on('click','.saveBtn',saveOnLocal);
+container.on('click', '.saveBtn', saveOnLocal);
 
 
 
-function saveOnLocal(){
+function saveOnLocal() {
 
     //Var definitions
-    var timeBlocks =[
+    var timeBlocks = [
         {
-        time:'',
-        text:'',
-            
+            time: '',
+            text: '',
+
         }
     ];
     var newBlock = {
-        time:'',
-        text:'',
+        time: '',
+        text: '',
     }
 
     //Gets current element from Local Storage
-    timeBlocks= JSON.parse(localStorage.getItem('timeblock'));
+    timeBlocks = JSON.parse(localStorage.getItem('timeblock'));
 
     // Targets button and all the family
-    var button= $(this);
-    var sibling1= button.prev();
-    var nephew= sibling1.children();
-    var sibling2= button.prev().prev();
-    var currentHour= sibling2.text();
+    var button = $(this);
+    var sibling1 = button.prev();
+    var nephew = sibling1.children();
+    var sibling2 = button.prev().prev();
+    var currentHour = sibling2.text();
 
-   
- 
 
     //Gets the index of the element to check if is already on the local storage
-    
     if (timeBlocks) {
 
         var index = timeBlocks.findIndex(x => x.time === currentHour);
-  
+
         if (index === -1) {
-           
-             //Sets new object for local storage
-            newBlock.time= currentHour;
-            newBlock.text= nephew.val();   
+
+            //Sets new object for local storage
+            newBlock.time = currentHour;
+            newBlock.text = nephew.val();
 
             //Push new element into the Array because it doesn't exist
-            timeBlocks.push(newBlock);    
+            timeBlocks.push(newBlock);
         }
-        else
-        {
+        else {
             //Replace existing text on timeblock 
-            timeBlocks[index].text= nephew.val();   
+            timeBlocks[index].text = nephew.val();
         }
 
         localStorage.setItem('timeblock', JSON.stringify(timeBlocks));
 
     }
-    else{
+    else {
         //Adds first element to Local Storage
-        var timeBlocksFirst =[
+        var timeBlocksFirst = [
             {
-            time:'',
-            text: '',         
+                time: '',
+                text: '',
             }
         ];
-        
+
         //Sets new object on array for local storage
-       timeBlocksFirst[0].time= currentHour;
-       timeBlocksFirst[0].text= nephew.val(); 
-       localStorage.setItem('timeblock', JSON.stringify(timeBlocksFirst));
+        timeBlocksFirst[0].time = currentHour;
+        timeBlocksFirst[0].text = nephew.val();
+        localStorage.setItem('timeblock', JSON.stringify(timeBlocksFirst));
     }
 
-    
+
 
     showAppointmentNote();
-    
+
     //Convert object into a JSON string and store in local storage
-   
-    
+
+
 };
 
 
 
-function showAppointmentNote(){
-  // Adds jumbotron child
-  var parent= $('.jumbotron');
-  //Appends a child to show note
-  parent.append('<p class="note">Appointment added to Local Storage <i class="fas fa-check"></i> </p>');
-  //Show the note only for some time on screen
-  setTimeout(function () {  $('.note').remove();}, 500);
+function showAppointmentNote() {
+    // Adds jumbotron child
+    var parent = $('.jumbotron');
+    //Appends a child to show note
+    parent.append('<p class="note">Appointment added to Local Storage <i class="fas fa-check"></i> </p>');
+    //Show the note only for some time on screen
+    setTimeout(function () { $('.note').remove(); }, 500);
 }
 

@@ -57,8 +57,7 @@ while (businessHours.hour() < 18) {
 
    //console.log('existing'+);
    if (existingBlocks){
-        var i = existingBlocks.findIndex(p => p.time === hh);
-        
+        var i = existingBlocks.findIndex(p => p.time === hh);  
         console.log(hh);
         console.log(i);   
         console.log(existingBlocks[0].text)  
@@ -149,18 +148,21 @@ function saveOnLocal(){
 
     }
     else{
+        //If is the first block we save
 
         var timeBlocksNew =[
             {
-            time:'9am',
-            text:'FIRST-NEED TO CORRECT', 
-                
+            time:'',
+            text: '',         
             }
         ];
+        
         //Adding first element to Local Storage
-        console.log('First element',timeBlocksNew);
-       // timeBlocks2[0].time= currentHour;
-       // timeBlocks2[0].text= nephew.val(); 
+      // console.log('currentHour',currentHour);
+      // console.log('current Text',nephew.val());
+
+       timeBlocksNew[0].time= currentHour;
+       timeBlocksNew[0].text= nephew.val(); 
        localStorage.setItem('timeblock', JSON.stringify(timeBlocksNew));
 
         

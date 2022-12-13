@@ -157,7 +157,7 @@ function saveOnLocal() {
 
     showAppointmentNote();
 
-    //Convert object into a JSON string and store in local storage
+
 
 
 };
@@ -168,7 +168,7 @@ function showAppointmentNote() {
     //Adds jumbotron child
     var parent = $('.jumbotron');
     //Appends a child to show note
-    parent.append('<p class="note">Appointment added to Local Storage <i class="fas fa-check"></i> </p>');
+    parent.append('<p class="note">Appointment Added to <span class="localStorage">localStorage</span> <i class="fas fa-check"></i> </p>');
     //Show the note only for some time on screen
     setTimeout(function () { $('.note').remove(); }, 500);
 }

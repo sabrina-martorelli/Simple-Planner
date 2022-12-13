@@ -104,10 +104,6 @@ function saveOnLocal(){
 
     //Gets current element from Local Storage
     timeBlocks= JSON.parse(localStorage.getItem('timeblock'));
-    //timeBlocks=[
-    //     {timer: '11am'},
-    //    { timer:'10am'},
-    //     {timer:'12am'}];
 
     // Targets button and all the family
     var button= $(this);
@@ -116,31 +112,27 @@ function saveOnLocal(){
     var sibling2= button.prev().prev();
     var currentHour= sibling2.text();
 
-    console.log(currentHour);
-
-    //Sets new object for local storage
-    newBlock.time= currentHour;
-    newBlock.text= nephew.val();   
-    console.log(nephew.val());
-    console.log(timeBlocks);
+   
+ 
 
     //Gets the index of the element to check if is already on the local storage
     
     if (timeBlocks) {
 
         var index = timeBlocks.findIndex(x => x.time === currentHour);
-        console.log(index);
-        console.log(timeBlocks);
   
         if (index === -1) {
-            console.log('Adds one ');
+           
+             //Sets new object for local storage
+            newBlock.time= currentHour;
+            newBlock.text= nephew.val();   
+
             //Push new element into the Array because it doesn't exist
             timeBlocks.push(newBlock);    
         }
         else
         {
-            console.log('Updates one');
-            // Replace existing text on timeblock 
+            //Replace existing text on timeblock 
             timeBlocks[index].text= nephew.val();   
         }
 

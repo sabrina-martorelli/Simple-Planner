@@ -107,14 +107,14 @@ function saveOnLocal() {
     //Gets current timeblocks from Local Storage
     timeBlocks = JSON.parse(localStorage.getItem('timeblock'));
 
-    // Targets button and all the family members
+    //Targets button and all the family members
     var button = $(this);
     var sibling1 = button.prev();
     var nephew = sibling1.children();
     var sibling2 = button.prev().prev();
     var currentHour = sibling2.text();
+    var currentText = nephew.val();
 
- 
 
     //Base on if there are existing timeblocks or not adds or replace text on timeblocks
     if (timeBlocks) {
@@ -128,7 +128,7 @@ function saveOnLocal() {
 
             //Sets new object for local storage
             newBlock.time = currentHour;
-            newBlock.text = nephew.val();
+            newBlock.text = currentText;
 
             //Push new element into the Array because it doesn't exist
             timeBlocks.push(newBlock);
@@ -137,7 +137,7 @@ function saveOnLocal() {
 
 
             //Replace existing text on timeblock 
-            timeBlocks[index].text = nephew.val();
+            timeBlocks[index].text = currentText;
 
 
         }
@@ -156,7 +156,7 @@ function saveOnLocal() {
 
         //Sets new object on array for local storage
         timeBlocksFirst[0].time = currentHour;
-        timeBlocksFirst[0].text = nephew.val();
+        timeBlocksFirst[0].text = currentText;
         localStorage.setItem('timeblock', JSON.stringify(timeBlocksFirst));
     }
 
@@ -186,20 +186,16 @@ function cleanLocalStorage() {
 
     //Var definitions
     var cleanBlocks, newBlock = [];
-   
-
+    //Gets current timeblocks from Local Storage
     cleanBlocks = JSON.parse(localStorage.getItem('timeblock'));
-
+    //Loops the array to removes timeblocks empty using an extra array
     for (var block= 0; block<cleanBlocks.length;  block++)
-    {
-    
+    {  
         if (cleanBlocks[block].text !=="")
         {
            newBlock.push(cleanBlocks[block]);
         }
-
     }
-
+    //Saves clean data on Local Storage
     localStorage.setItem('timeblock', JSON.stringify(newBlock));
-
 }

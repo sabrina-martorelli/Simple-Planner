@@ -1,14 +1,7 @@
 
-//Var definition for existing blocks
-var existingBlocks = [
-        {
-            time: '',
-            text: '',
-        }  
-];
-
+   
 //Gets existing timeblocks from local storage
-existingBlocks = JSON.parse(localStorage.getItem('timeblock'));
+var existingBlocks = JSON.parse(localStorage.getItem('timeblock'));
 
 //Gets current date
 var today = moment().format("dddd, MMMM Do");
@@ -17,7 +10,6 @@ var currentHour = moment().format('HH');
 
 //Display the current day at the top of the calender
 $('#currentDay').text(today);
-
 
 //Targets container to add rows
 var container = $('.container');
@@ -73,33 +65,28 @@ while (businessHours.hour() < 18) {
         row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea></textarea></div>`);
     }
 
-
-    //Creats div for save the button
+    //Create div for save the button
     row.append(`<div class="p-3 saveBtn"><i class="fas fa-save"></i></div>`);
-
 
     //Increase hour for next round
     businessHours.add(1, 'hour');
 }
 
-
 //Listener for Save button
 container.on('click', '.saveBtn', saveOnLocal);
-
 
 //Function to save on Local storage the timeblocks text
 function saveOnLocal() {
 
     //Var definitions
-    var timeBlocks = [
+    var timeBlocks, timeBlocksFirst = [
         {
             time: '',
             text: '',
-
         }
     ];
 
-    var newBlock = {
+    var newBlock  = {
         time: '',
         text: '',
     }
@@ -125,7 +112,6 @@ function saveOnLocal() {
      
         if (index === -1) {
 
-
             //Sets new object for local storage
             newBlock.time = currentHour;
             newBlock.text = currentText;
@@ -135,10 +121,8 @@ function saveOnLocal() {
         }
         else {
 
-
             //Replace existing text on timeblock 
             timeBlocks[index].text = currentText;
-
 
         }
 
@@ -146,20 +130,11 @@ function saveOnLocal() {
 
     }
     else {
-        //Case to add first element to Local Storage
-        var timeBlocksFirst = [
-            {
-                time: '',
-                text: '',
-            }
-        ];
-
         //Sets new object on array for local storage
         timeBlocksFirst[0].time = currentHour;
         timeBlocksFirst[0].text = currentText;
         localStorage.setItem('timeblock', JSON.stringify(timeBlocksFirst));
     }
-
 
     //Shows note at the top of the page when a new text is saved
     showAppointmentNote();
@@ -167,11 +142,9 @@ function saveOnLocal() {
     //Removes all entries that are empty - Cover removed cases  (text ="")
     cleanLocalStorage();
 
-
 };
 
-
-
+//Function to show note at the top of the page when a timeblock is save
 function showAppointmentNote() {
     //Adds jumbotron child
     var parent = $('.jumbotron');
@@ -181,21 +154,20 @@ function showAppointmentNote() {
     setTimeout(function () { $('.note').remove(); }, 500);
 }
 
-
+//Function to remove all entries that are empty
 function cleanLocalStorage() {
-
     //Var definitions
-    var cleanBlocks, newBlock = [];
+    var currentBlocks, cleanBlock =[];
     //Gets current timeblocks from Local Storage
-    cleanBlocks = JSON.parse(localStorage.getItem('timeblock'));
+    currentBlocks = JSON.parse(localStorage.getItem('timeblock'));
     //Loops the array to removes timeblocks empty using an extra array
-    for (var block= 0; block<cleanBlocks.length;  block++)
+    for (var block= 0; block<currentBlocks.length;  block++)
     {  
-        if (cleanBlocks[block].text !=="")
+        if (currentBlocks[block].text !=="")
         {
-           newBlock.push(cleanBlocks[block]);
+           cleanBlock.push(currentBlocks[block]);
         }
     }
     //Saves clean data on Local Storage
-    localStorage.setItem('timeblock', JSON.stringify(newBlock));
+    localStorage.setItem('timeblock', JSON.stringify(cleanBlock));
 }

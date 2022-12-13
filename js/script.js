@@ -107,8 +107,10 @@ function saveOnLocal(){
        timeBlocks[index].text= nephew.val();   
     }
 
- //Convert object into a JSON string and store in local storage
- localStorage.setItem('timeblock', JSON.stringify(timeBlocks));
+    showNewAppointmentText();
+    
+    //Convert object into a JSON string and store in local storage
+    localStorage.setItem('timeblock', JSON.stringify(timeBlocks));
 
     
 };

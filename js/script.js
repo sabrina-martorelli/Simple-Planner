@@ -148,24 +148,17 @@ function saveOnLocal(){
 
     }
     else{
-        //If is the first block we save
-
-        var timeBlocksNew =[
+        //Adds first element to Local Storage
+        var timeBlocksFirst =[
             {
             time:'',
             text: '',         
             }
         ];
         
-        //Adding first element to Local Storage
-      // console.log('currentHour',currentHour);
-      // console.log('current Text',nephew.val());
-
-       timeBlocksNew[0].time= currentHour;
-       timeBlocksNew[0].text= nephew.val(); 
-       localStorage.setItem('timeblock', JSON.stringify(timeBlocksNew));
-
-        
+       timeBlocksFirst[0].time= currentHour;
+       timeBlocksFirst[0].text= nephew.val(); 
+       localStorage.setItem('timeblock', JSON.stringify(timeBlocksFirst));
     }
 
     

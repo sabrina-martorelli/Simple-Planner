@@ -1,14 +1,13 @@
 
-//Var definitions
+//Var definition for existing blocks
 var existingBlocks = [
-    {
-        time: '',
-        text: '',
-
-    }
+        {
+            time: '',
+            text: '',
+        }  
 ];
 
-//Search hh on existingBlocks , get index and insert text into textarea 
+//Gets existing timeblocks from local storage
 existingBlocks = JSON.parse(localStorage.getItem('timeblock'));
 
 //Gets current date
@@ -26,12 +25,12 @@ var container = $('.container');
 //Adds Classes to become a flex box
 container.addClass('d-flex flex-column');
 
-var timeblockColour = "";
-
-//Looping from 9 to 17 hs am/pm format
 var businessHours = moment(09, 'HH');
+
+//Loos from 9 to 17 hs am/pm format to create planner
 while (businessHours.hour() < 18) {
 
+    //Gets hours as 12hours format 
     var hh = (businessHours.format('hha'));
     //Gets hours as 24hours format for color comparison
     var HH24 = (businessHours.format('HH'));
@@ -42,9 +41,8 @@ while (businessHours.hour() < 18) {
 
     row.append(`<div class="p-3 hour">${hh}</div>`);
 
-    //Compares current time hour with planner to show correct colors
-    //Use of variable to set the colour
-
+    //Compares current hour with planner to show correct colors
+    var timeblockColour = "";
     if (HH24 > currentHour) {
         timeblockColour = 'future';
     }
@@ -57,9 +55,12 @@ while (businessHours.hour() < 18) {
         }
     }
 
-
+    //Base on if there are existing timeblocks or not creates div for the text
     if (existingBlocks) {
+        //Search for the index of the timeblock to target exact text
         var i = existingBlocks.findIndex(p => p.time === hh);
+
+        //If there is a existing block for the current hour- Gets the text from Local storage and place on div text
         if (i !== -1) {
             row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea>${existingBlocks[i].text}</textarea></div>`);
         }
@@ -67,23 +68,26 @@ while (businessHours.hour() < 18) {
             row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea></textarea></div>`);
         }
     }
+    //If there are no existing timeblocks on the Local storage creates all the divs for the first time
     else {
         row.append(`<div class="p-3 w-100 ${timeblockColour}"><textarea></textarea></div>`);
     }
 
 
-
+    //Creats div for save the button
     row.append(`<div class="p-3 saveBtn"><i class="fas fa-save"></i></div>`);
 
+
+    //Increase hour for next round
     businessHours.add(1, 'hour');
 }
 
 
-
+//Listener for Save button
 container.on('click', '.saveBtn', saveOnLocal);
 
 
-
+//Function to save on Local storage the timeblocks text
 function saveOnLocal() {
 
     //Var definitions
@@ -94,27 +98,29 @@ function saveOnLocal() {
 
         }
     ];
+
     var newBlock = {
         time: '',
         text: '',
     }
 
-    //Gets current element from Local Storage
+    //Gets current timeblocks from Local Storage
     timeBlocks = JSON.parse(localStorage.getItem('timeblock'));
 
-    // Targets button and all the family
+    // Targets button and all the family members
     var button = $(this);
     var sibling1 = button.prev();
     var nephew = sibling1.children();
     var sibling2 = button.prev().prev();
     var currentHour = sibling2.text();
 
-
-    //Gets the index of the element to check if is already on the local storage
+    //Base on if there are existing timeblocks or not adds or replace text on timeblocks
     if (timeBlocks) {
-
+        
+        //Search for the index of the timeblock to target exact text
         var index = timeBlocks.findIndex(x => x.time === currentHour);
 
+     
         if (index === -1) {
 
             //Sets new object for local storage
@@ -133,7 +139,7 @@ function saveOnLocal() {
 
     }
     else {
-        //Adds first element to Local Storage
+        //Case to add first element to Local Storage
         var timeBlocksFirst = [
             {
                 time: '',
@@ -159,7 +165,7 @@ function saveOnLocal() {
 
 
 function showAppointmentNote() {
-    // Adds jumbotron child
+    //Adds jumbotron child
     var parent = $('.jumbotron');
     //Appends a child to show note
     parent.append('<p class="note">Appointment added to Local Storage <i class="fas fa-check"></i> </p>');

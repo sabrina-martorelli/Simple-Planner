@@ -1,8 +1,9 @@
 
 
+   //Search hh on existingBlocks , get index and insert text into textarea 
 
-
-
+  
+existingBlocks= JSON.parse(localStorage.getItem('timeblock'));
 
 //Gets current date
 var today = moment().format("dddd, MMMM Do");
@@ -53,22 +54,26 @@ while (businessHours.hour() < 18) {
         }
     }
 
-   //Search hh on existingBlocks , get index and insert text into textarea 
 
-   
-   existingBlocks= JSON.parse(localStorage.getItem('timeblock'));
-   var i = timeBlocks.findIndex(x => x.time === hh);
-    if(i !== -1){
-        row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea>${existingBlocks[i].text}</textarea></div>`);
-  
-    }
+   //console.log('existing'+);
+   if (existingBlocks){
+        var i = existingBlocks.findIndex(p => p.time === hh);
+        
+        console.log(hh);
+        console.log(i);   
+        console.log(existingBlocks[0].text)  
+            if(i !== -1){
+                row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea>${existingBlocks[i].text}</textarea></div>`);
+        
+            }
+        }
+     else{
 
-    else{
+                row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea></textarea></div>`);
+        
 
-        row.append(`<div class="p-3 w-100 ${timeblockColour} "><textarea></textarea></div>`);
-  
-
-    }
+            }
+    
 
 
     row.append(`<div class="p-3 saveBtn"><i class="fas fa-save"></i></div>`);
@@ -147,8 +152,8 @@ function saveOnLocal(){
 
         var timeBlocksNew =[
             {
-            time:'9pm',
-            text:'domehitng', 
+            time:'9am',
+            text:'FIRST-NEED TO CORRECT', 
                 
             }
         ];

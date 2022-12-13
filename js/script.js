@@ -1,4 +1,21 @@
 
+//Var definitions
+var timeBlocks =[
+    {
+       time:'',
+       text:'',
+        
+    }
+];
+var newBlock = {
+    time:'',
+    text:'',
+}
+
+
+//Gets current element from Local Storage
+timeBlocks= JSON.parse(localStorage.getItem('timeblock'));
+
 //Gets current date
 var today = moment().format("dddd, MMMM Do");
 //Gets current date with 24hs format for timeblockColour comparison 
@@ -63,22 +80,37 @@ while (businessHours.hour() < 18) {
 container.on('click','.saveBtn',saveOnLocal);
 
 
+
 function saveOnLocal(){
 
-    console.log('save');
-   // console.log(this);
+    // Targets button and all the family
     var button= $(this);
-   // console.log(button);
-    var hermano= button.prev();
-    console.log(hermano);
-    var hijo= hermano.children();
-    console.log(hijo.val());
+    var sibling1= button.prev();
+    var nephew= sibling1.children();
+    var sibling2= button.prev().prev();
+    var currentHour= sibling2.val();
 
-    var hermano2= button.prev().prev();
-   // console.log(hermano2);
-   // console.log(hermano2.text());
-   
-    // console.log(hermano.val());
+    //Sets new object for local storage
+    newBlock.time= currentHour;
+    newBlock.text= nephew.val();   
+
+    //Gets the index of the element to check if is already on the local storage
+    var index=timeBlocks.indexOf(currentHour);
+    
+    if (index == -1){
+        //Push new element into the Array because it doesn't exist
+        timeBlocks.push(newBlock);
+    }
+    else
+    {
+       // Replace existing text on timeblock 
+       timeBlocks[index].text= nephew.val();   
+    }
+
+ //Convert object into a JSON string and store in local storage
+ localStorage.setItem('timeblock', JSON.stringify(timeBlocks));
+
+    
 };
 
 

@@ -71,17 +71,17 @@ container.on('click','.saveBtn',saveOnLocal);
 function saveOnLocal(){
 
     //Var definitions
-var timeBlocks =[
-    {
-       time:'10am',
-       text:'',
-        
+    var timeBlocks =[
+        {
+        time:'',
+        text:'',
+            
+        }
+    ];
+    var newBlock = {
+        time:'',
+        text:'',
     }
-];
-var newBlock = {
-    time:'',
-    text:'',
-}
 
     //Gets current element from Local Storage
     timeBlocks= JSON.parse(localStorage.getItem('timeblock'));
@@ -125,12 +125,25 @@ var newBlock = {
             timeBlocks[index].text= nephew.val();   
         }
 
+        localStorage.setItem('timeblock', JSON.stringify(timeBlocks));
+
     }
     else{
-        //Adding first element to Local Storage
 
-        timeBlocks[0].time= currentHour;
-        timeBlocks[0].text= nephew.val(); 
+        var timeBlocksNew =[
+            {
+            time:'9pm',
+            text:'domehitng', 
+                
+            }
+        ];
+        //Adding first element to Local Storage
+        console.log('First element',timeBlocksNew);
+       // timeBlocks2[0].time= currentHour;
+       // timeBlocks2[0].text= nephew.val(); 
+       localStorage.setItem('timeblock', JSON.stringify(timeBlocksNew));
+
+        
     }
 
     
@@ -138,8 +151,7 @@ var newBlock = {
     showAppointmentNote();
     
     //Convert object into a JSON string and store in local storage
-   localStorage.setItem('timeblock', JSON.stringify(timeBlocks));
-
+   
     
 };
 

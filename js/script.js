@@ -2,8 +2,7 @@
 
 
 
-//Gets current element from Local Storage
-timeBlocks= JSON.parse(localStorage.getItem('timeblock'));
+
 
 //Gets current date
 var today = moment().format("dddd, MMMM Do");
@@ -75,7 +74,7 @@ function saveOnLocal(){
     //Var definitions
 var timeBlocks =[
     {
-       time:'',
+       time:'10am',
        text:'',
         
     }
@@ -84,6 +83,9 @@ var newBlock = {
     time:'',
     text:'',
 }
+
+    //Gets current element from Local Storage
+    timeBlocks= JSON.parse(localStorage.getItem('timeblock'));
 
     // Targets button and all the family
     var button= $(this);
@@ -101,19 +103,23 @@ var newBlock = {
     console.log(timeBlocks);
     //Gets the index of the element to check if is already on the local storage
     
-    var index=timeBlocks.map(e => e.time).indexOf(currentHour);
+    //var index=timeBlocks.map(e => e.time).indexOf('10am',0);\
+
+     var index=timeBlocks.indexOf('10am');
     console.log(index);
     // }
     // else{
     //     timeBlocks[0].time= currentHour;
     //     timeBlocks[0].text= nephew.text();  
     // }
-    if (index == -1){
+    if (index === -1){
+        console.log('Adds one ');
         //Push new element into the Array because it doesn't exist
-        timeBlocks.push(newBlock);
+        timeBlocks.push(newBlock);    
     }
     else
     {
+        console.log('Updates one');
        // Replace existing text on timeblock 
        timeBlocks[index].text= nephew.val();   
     }
@@ -121,7 +127,7 @@ var newBlock = {
     showAppointmentNote();
     
     //Convert object into a JSON string and store in local storage
-    localStorage.setItem('timeblock', JSON.stringify(timeBlocks));
+   localStorage.setItem('timeblock', JSON.stringify(timeBlocks));
 
     
 };
